@@ -11,6 +11,11 @@ export class ProductResolver {
     private readonly cateService: CategoriesService,
   ) {}
 
+  @Query(() => String)
+  sayHello(): string {
+    return 'Hello World!';
+  }
+
   @Query(() => Product)
   async product(@Args('slug', { type: () => String }) slug: string) {
     return this.productsService.findOne(slug);
