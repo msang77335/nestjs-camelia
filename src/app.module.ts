@@ -4,10 +4,10 @@ import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriverConfig, ApolloDriver } from '@nestjs/apollo';
 import { ProductsModule } from './products/products.module';
-import { AppController } from './app.controller';
 
 @Module({
   imports: [
+    ProductsModule,
     ConfigModule.forRoot({ isGlobal: true }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
@@ -15,9 +15,8 @@ import { AppController } from './app.controller';
         process.env.NODE_ENV === 'development' ? 'schema.gql' : undefined,
     }),
     DatabaseModule,
-    ProductsModule,
   ],
-  controllers: [AppController],
+  controllers: [],
   providers: [],
 })
 export class AppModule {}
