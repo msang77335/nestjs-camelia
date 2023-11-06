@@ -11,6 +11,8 @@ import { AppController } from './app.controller';
     ConfigModule.forRoot({ isGlobal: true }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
+      autoSchemaFile:
+        process.env.NODE_ENV === 'development' ? 'schema.gql' : undefined,
     }),
     DatabaseModule,
     ProductsModule,
