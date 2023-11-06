@@ -12,6 +12,7 @@ import { AppController } from './app.controller';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: 'schema.gql',
+      path: '/graphql',
     }),
     DatabaseModule,
     ProductsModule,
