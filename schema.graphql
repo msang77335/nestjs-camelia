@@ -33,6 +33,7 @@ type Category {
 }
 
 type Query {
+  sayHello: String!
   product(slug: String!): Product!
   products(categorySlug: String!): [Product!]!
   categories: [Category!]!
