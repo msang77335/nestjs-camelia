@@ -1,0 +1,39 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Color {
+  name: String!
+  slug: String!
+  value: String!
+  images: [String!]!
+}
+
+type Description {
+  desType: String!
+  value: String!
+}
+
+type Product {
+  slug: String!
+  name: String!
+  price: Float!
+  info: String!
+  video: String!
+  infoList: [String!]!
+  categorySlug: String!
+  colors: [Color!]!
+  description: [Description!]!
+}
+
+type Category {
+  name: String!
+  slug: String!
+  products: [Product!]!
+}
+
+type Query {
+  product(slug: String!): Product!
+  products(categorySlug: String!): [Product!]!
+  categories: [Category!]!
+}
