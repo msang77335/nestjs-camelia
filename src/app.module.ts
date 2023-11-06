@@ -11,7 +11,9 @@ import { ProductsModule } from './products/products.module';
     ConfigModule.forRoot({ isGlobal: true }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      autoSchemaFile: 'schema.graphql',
+      autoSchemaFile:
+        process.env.NODE_ENV === 'development' ? 'schema.graphql' : undefined,
+      typePaths: ['./**/*.graphql'],
     }),
     DatabaseModule,
   ],
