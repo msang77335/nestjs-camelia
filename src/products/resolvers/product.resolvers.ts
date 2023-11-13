@@ -3,6 +3,7 @@ import { Product } from 'src/schemas/product.schema';
 import { ProductsService } from '../services/products/products.service';
 import { Category } from 'src/schemas/category.schema';
 import { CategoriesService } from '../services/categories/categories.service';
+import { FindByCategorySlugRes } from '../types/responsive.type';
 
 @Resolver()
 export class ProductResolver {
@@ -21,7 +22,7 @@ export class ProductResolver {
     return this.productsService.findOne(slug);
   }
 
-  @Query(() => [Product])
+  @Query(() => FindByCategorySlugRes)
   async products(
     @Args('categorySlug', { type: () => String }) categorySlug: string,
   ) {

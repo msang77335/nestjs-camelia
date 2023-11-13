@@ -32,9 +32,14 @@ type Category {
   products: [Product!]!
 }
 
+type FindByCategorySlugRes {
+  category: Category!
+  products: [Product!]!
+}
+
 type Query {
   sayHello: String!
   product(slug: String!): Product!
-  products(categorySlug: String!): [Product!]!
+  products(categorySlug: String!): FindByCategorySlugRes!
   categories: [Category!]!
 }

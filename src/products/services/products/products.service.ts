@@ -1,15 +1,17 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, forwardRef, Inject } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Product } from 'src/schemas/product.schema';
 import { CategoriesService } from '../categories/categories.service';
-import { FindByCategorySlugRes } from 'src/products/types/products';
+import { FindByCategorySlugRes } from 'src/products/types/responsive.type';
 
 @Injectable()
 export class ProductsService {
   constructor(
-    @InjectModel(Product.name) private productModel: Model<Product>,
-    private readonly cateService: () => CategoriesService,
+    @InjectModel(Product.name)
+    @Inject(forwardRef(() => CategoriesService))
+    private productModel: Model<Product>,
+    private readonly cateService: CategoriesService,
   ) {}
 
   async findAll(): Promise<Product[]> {
@@ -24,7 +26,7 @@ export class ProductsService {
     categorySlug: string,
   ): Promise<FindByCategorySlugRes> {
     const [category, products] = await Promise.all([
-      this.cateService().findOne(categorySlug),
+      this.cateService.findOne(categorySlug),
       this.productModel.find({ categorySlug: categorySlug }).exec(),
     ]);
     return {
