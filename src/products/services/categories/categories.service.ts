@@ -8,7 +8,7 @@ import { InjectModel } from '@nestjs/mongoose';
 export class CategoriesService {
   constructor(
     @InjectModel(Category.name) private cateModel: Model<Category>,
-    private readonly productService: ProductsService,
+    private readonly productService: () => ProductsService,
   ) {}
 
   async findOne(slug: string): Promise<Category> {
@@ -18,7 +18,7 @@ export class CategoriesService {
   async findAll(): Promise<Category[]> {
     const [categories, products] = await Promise.all([
       this.cateModel.find().exec(),
-      this.productService.findAll(),
+      this.productService().findAll(),
     ]);
     for (const category of categories) {
       category.products = products.filter(

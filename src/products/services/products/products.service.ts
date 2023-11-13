@@ -9,7 +9,7 @@ import { FindByCategorySlugRes } from 'src/products/types/products';
 export class ProductsService {
   constructor(
     @InjectModel(Product.name) private productModel: Model<Product>,
-    private readonly cateService: CategoriesService,
+    private readonly cateService: () => CategoriesService,
   ) {}
 
   async findAll(): Promise<Product[]> {
@@ -24,7 +24,7 @@ export class ProductsService {
     categorySlug: string,
   ): Promise<FindByCategorySlugRes> {
     const [category, products] = await Promise.all([
-      this.cateService.findOne(categorySlug),
+      this.cateService().findOne(categorySlug),
       this.productModel.find({ categorySlug: categorySlug }).exec(),
     ]);
     return {
