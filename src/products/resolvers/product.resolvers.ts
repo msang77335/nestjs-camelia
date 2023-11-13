@@ -23,7 +23,7 @@ export class ProductResolver {
   }
 
   @Query(() => FindByCategorySlugRes)
-  async products(
+  async productsByCategory(
     @Args('categorySlug', { type: () => String }) categorySlug: string,
   ) {
     return this.productsService.findByCategorySlug(categorySlug);
