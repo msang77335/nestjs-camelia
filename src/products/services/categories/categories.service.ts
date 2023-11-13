@@ -11,6 +11,10 @@ export class CategoriesService {
     private readonly productService: ProductsService,
   ) {}
 
+  async findOne(slug: string): Promise<Category> {
+    return this.cateModel.findOne({ slug: slug });
+  }
+
   async findAll(): Promise<Category[]> {
     const [categories, products] = await Promise.all([
       this.cateModel.find().exec(),
